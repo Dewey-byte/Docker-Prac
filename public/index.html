@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solstice Dock — Night Harbor Cafe</title>
+    <meta
+      name="description"
+      content="A late-summer night market on the water. Coffee, lanterns, and tide charts — served from a Docker container."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Outfit:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="sky" aria-hidden="true">
+      <div class="aurora"></div>
+      <div class="stars"></div>
+    </div>
+    <div class="water" aria-hidden="true"></div>
+
+    <header class="masthead">
+      <p class="mark">Pier 47 · Open till last ferry</p>
+      <h1>Solstice Dock</h1>
+      <p class="lede">
+        A night cafe at the edge of the harbor. Light the lanterns, check the
+        tide, and stay until the water goes still.
+      </p>
+      <div class="status-row">
+        <span class="pill live" id="clock">--:--</span>
+        <span class="pill" id="tide">Tide loading…</span>
+        <span class="pill docker">nginx · port 80</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="lanterns" aria-labelledby="lantern-title">
+        <div class="section-head">
+          <h2 id="lantern-title">Harbor lanterns</h2>
+          <p>Click each lantern to light the pier. All seven unlock tonight’s signal.</p>
+        </div>
+        <div class="lantern-row" id="lantern-row"></div>
+        <p class="signal" id="signal" hidden>
+          Signal received. The last ferry leaves at <strong>23:47</strong>.
+          Save a seat by the water — cinnamon steamers are on the house.
+        </p>
+      </section>
+
+      <section class="board" aria-labelledby="board-title">
+        <div class="section-head">
+          <h2 id="board-title">Tonight’s board</h2>
+          <p>Specials rotate with the tide. Nothing on this menu is from a tutorial sample.</p>
+        </div>
+        <ul class="menu">
+          <li>
+            <span class="item">Amber steamer</span>
+            <span class="note">oat milk, orange peel, black tea</span>
+            <span class="price">120</span>
+          </li>
+          <li>
+            <span class="item">Cold-current pour</span>
+            <span class="note">slow drip over crushed ice</span>
+            <span class="price">95</span>
+          </li>
+          <li>
+            <span class="item">Dock loaf</span>
+            <span class="note">sesame, honey, still warm</span>
+            <span class="price">80</span>
+          </li>
+          <li>
+            <span class="item">Night-market noodles</span>
+            <span class="note">chili oil, greens, fried garlic</span>
+            <span class="price">165</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="split">
+        <article class="card">
+          <h2>How this page is running</h2>
+          <p>
+            This site is a static cafe page packed into a Docker image based on
+            <code>nginx:alpine</code>. The container serves port 80. The host
+            maps that port so browsers — including yours — can reach it.
+          </p>
+          <ol class="steps">
+            <li>Dockerfile describes the image</li>
+            <li><code>docker build</code> creates the image</li>
+            <li><code>docker run</code> starts a container</li>
+            <li>The image is pushed to Docker Hub</li>
+            <li>A public host exposes the container to the internet</li>
+          </ol>
+        </article>
+        <article class="card log">
+          <h2>Bottle log</h2>
+          <p>Leave a note for the next visitor. Saved only in this browser.</p>
+          <form id="log-form">
+            <label class="sr-only" for="note">Your note</label>
+            <input id="note" maxlength="80" placeholder="The tide is kind tonight…" required />
+            <button type="submit">Drop bottle</button>
+          </form>
+          <ul id="log-list"></ul>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>Solstice Dock · built as an original Docker 101 hands-on, not a course sample.</p>
+      <p class="tiny">Image serves <code>/usr/share/nginx/html</code> inside the container.</p>
+    </footer>
+    <script src="app.js"></script>
+  </body>
+</html>
